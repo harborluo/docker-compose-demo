@@ -1,0 +1,15 @@
+steps to install docker and dockers on centOS
+
+1.  install docker
+  yum install docker
+2. install docker-compose
+1)首先检查linux有没有安装python-pip包，直接执行
+  yum install python-pip -y
+2)没有python-pip包就执行命令
+  yum -y install epel-release
+3) 执行成功之后，再次执行
+  yum install python-pip
+4) 对安装好的pip进行升级
+  pip install --upgrade pip；
+5) 至此，pip工具就安装好了，下面使用pip 安装docker-compose
+  pip install docker-compose
