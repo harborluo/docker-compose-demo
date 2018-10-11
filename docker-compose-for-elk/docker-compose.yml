@@ -1,9 +1,19 @@
 version: "3"
+
+networks:
+  kibana:
+    driver: bridge
+  log_stash:
+    driver: bridge
+
 services:
   elasticsearch:
     image: docker.io/elasticsearch:latest
     container_name: es-local
     hostname: es-local
+    networks:
+      - log_stash
+      - kibana
     ports:
       - 9200:9200
       - 9300:9300
@@ -14,6 +24,8 @@ services:
     image: docker.io/kibana:latest
     container_name: kb-local
     hostname: kb-local
+    networks:
+      - kibana
     ports:
       - 5601:5601
     restart: unless-stopped
@@ -23,10 +35,14 @@ services:
       - elasticsearch
     environment:
       - "TZ=Asia/Shanghai"
+    networks:
+      - kibana
   logstash:
     image: docker.io/logstash:latest
     container_name: logstash-filebeat
     hostname: logstash-filebeat
+    networks:
+      - log_stash
     links:
       - elasticsearch:elasticsearch
     ports:
