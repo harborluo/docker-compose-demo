@@ -106,3 +106,20 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:9092
 #   volumes:
 #     - /var/run/docker.sock:/var/run/docker.sock
+  kafka-manager:
+    image: docker.io/sheepkiller/kafka-manager
+    container_name: kafka-manager-local
+    ports:
+      - "9000:9000"
+    links:
+      - zoo1
+      - zoo2
+      - zoo3
+      - zoo4
+      - broker1
+      - broker2
+      - broker3
+    environment:
+      ZK_HOSTS: zoo1:2181,zoo2:2181,zoo3:2181,zoo4:2181
+      APPLICATION_SECRET: 1q2w3e4r
+
