@@ -1,0 +1,66 @@
+version: "3"
+
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
+
+services:
+  elasticsearch:
+    image: docker.io/elasticsearch:latest
+    container_name: es-local
+    hostname: es-local
+    networks:
+      - front-tier
+      - back-tier
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - "TZ=Asia/Shanghai"
+    restart: unless-stopped
+  kibana:
+    image: docker.io/kibana:latest
+    container_name: kb-local
+    hostname: kb-local
+    networks:
+      - kibana
+    ports:
+      - 5601:5601
+    restart: unless-stopped
+    links:
+      - elasticsearch:elasticsearch
+    depends_on:
+      - elasticsearch
+    environment:
+      - "TZ=Asia/Shanghai"
+    networks:
+      - front-tier
+  logstash:
+    image: docker.io/logstash:latest
+    container_name: logstash-filebeat
+    hostname: logstash-filebeat
+    networks:
+      - back-tier
+    links:
+      - elasticsearch:elasticsearch
+    ports:
+      - 5044:5044
+    privileged: true
+    volumes:
+      - ./logstash_settings:/config-dir
+    command: logstash -f /config-dir/logstash-filebeat-sample.conf
+    depends_on:
+      - elasticsearch
+    environment:
+      - "TZ=Asia/Shanghai"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
+        labels: "production_status"
+        env: "os"
+    labels:
+      production_status: "testing"
