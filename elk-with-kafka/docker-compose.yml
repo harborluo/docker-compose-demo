@@ -47,6 +47,7 @@ services:
       - elasticsearch:elasticsearch
     ports:
       - 5044:5044
+      - 6044:6044
     privileged: true
     volumes:
       - ./logstash_settings:/config-dir
