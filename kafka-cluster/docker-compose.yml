@@ -39,7 +39,7 @@ services:
     environment:
       ZOO_MY_ID: 4
       PEER_TYPE: observer
-      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888 server.4=zoo4:2888:388:observer
+      ZOO_SERVERS: server.1=zoo1:2888:3888 server.2=zoo2:2888:3888 server.3=zoo3:2888:3888 server.4=zoo4:2888:3888:observer
 
   broker1:
     image: docker.io/wurstmeister/kafka
@@ -59,7 +59,7 @@ services:
       KAFKA_HOST_NAME: broker1
       KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181,zoo4:2181
       KAFKA_LISTENERS: PLAINTEXT://broker1:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker1:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${DOCKER_HOST_IP}:9091
 #   volumes:
 #     - /var/run/docker.sock:/var/run/docker.sock
 
@@ -81,7 +81,7 @@ services:
       KAFKA_HOST_NAME: broker2
       KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181,zoo4:2181
       KAFKA_LISTENERS: PLAINTEXT://broker2:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker2:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${DOCKER_HOST_IP}:9092
 #   volumes:
 #     - /var/run/docker.sock:/var/run/docker.sock
 
@@ -103,7 +103,8 @@ services:
       KAFKA_HOST_NAME: broker3
       KAFKA_ZOOKEEPER_CONNECT: zoo1:2181,zoo2:2181,zoo3:2181,zoo4:2181
       KAFKA_LISTENERS: PLAINTEXT://broker3:9092
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:9092
+      #KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker3:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://${DOCKER_HOST_IP}:9093
 #   volumes:
 #     - /var/run/docker.sock:/var/run/docker.sock
   kafka-manager:
