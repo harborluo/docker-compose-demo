@@ -14,6 +14,6 @@ steps to install docker and dockers on centOS
 5) 至此，pip工具就安装好了，下面使用pip 安装docker-compose
   pip install docker-compose
 
-6) Allow run dokcker command within a container
+6) Allow run docker command within a container
 To avoid performing a login again, you can simply run:
 $ newgrp docker
