@@ -3,13 +3,17 @@ steps to install docker and dockers on centOS
 1.  install docker
   yum install docker
 2. install docker-compose
-1)Ê×ÏÈ¼ì²élinuxÓĞÃ»ÓĞ°²×°python-pip°ü£¬Ö±½ÓÖ´ĞĞ
+1)é¦–å…ˆæ£€æŸ¥linuxæœ‰æ²¡æœ‰å®‰è£…python-pipåŒ…ï¼Œç›´æ¥æ‰§è¡Œ
   yum install python-pip -y
-2)Ã»ÓĞpython-pip°ü¾ÍÖ´ĞĞÃüÁî
+2)æ²¡æœ‰python-pipåŒ…å°±æ‰§è¡Œå‘½ä»¤
   yum -y install epel-release
-3) Ö´ĞĞ³É¹¦Ö®ºó£¬ÔÙ´ÎÖ´ĞĞ
+3) æ‰§è¡ŒæˆåŠŸä¹‹åï¼Œå†æ¬¡æ‰§è¡Œ
   yum install python-pip
-4) ¶Ô°²×°ºÃµÄpip½øĞĞÉı¼¶
-  pip install --upgrade pip£»
-5) ÖÁ´Ë£¬pip¹¤¾ß¾Í°²×°ºÃÁË£¬ÏÂÃæÊ¹ÓÃpip °²×°docker-compose
+4) å¯¹å®‰è£…å¥½çš„pipè¿›è¡Œå‡çº§
+  pip install --upgrade pipï¼›
+5) è‡³æ­¤ï¼Œpipå·¥å…·å°±å®‰è£…å¥½äº†ï¼Œä¸‹é¢ä½¿ç”¨pip å®‰è£…docker-compose
   pip install docker-compose
+
+6) Allow run docker command within a container
+To avoid performing a login again, you can simply run:
+$ newgrp docker
