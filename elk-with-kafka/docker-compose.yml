@@ -67,3 +67,31 @@ services:
         env: "os"
     labels:
       production_status: "testing"
+  logstash-normalize:
+    image: docker.io/logstash:latest
+    container_name: logstash-normalize
+    hostname: logstash-normalize
+    networks:
+      - back-tier
+    links:
+      - elasticsearch:elasticsearch
+    ports:
+      - 5045:5044
+    privileged: true
+    volumes:
+      - ./logstash_settings:/config-dir
+    command: logstash -f /config-dir/logstash-filebeat-normalize.conf
+    depends_on:
+      - elasticsearch
+    environment:
+      - "TZ=Asia/Shanghai"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+        max-file: "3"
+        labels: "production_status"
+        env: "os"
+    labels:
+      production_status: "testing"
+
