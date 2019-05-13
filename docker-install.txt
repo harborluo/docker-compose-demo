@@ -17,3 +17,7 @@ steps to install docker and dockers on centOS
 6) Allow run docker command within a container
 To avoid performing a login again, you can simply run:
 $ newgrp docker
+
+7)
+配置 Docker 加速镜像站
+curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://f1361db2.m.daocloud.io
