@@ -21,3 +21,15 @@ $ newgrp docker
 7)
 配置 Docker 加速镜像站
 curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://f1361db2.m.daocloud.io
+
+#######
+1) export images
+sudo docker save -o quay.io-calico-node-1.tar quay.io/calico/node 
+2) import images
+docker load -i quay.io-calico-node-1.tar
+
+3) run docker as a non-root user
+sudo groupadd docker
+sudo usermod -aG docker murphy
+
+reboot the host
