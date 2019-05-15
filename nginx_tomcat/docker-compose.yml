@@ -4,8 +4,8 @@ services:
     #image: dev-nginx:0.0.1
     image: docker.io/nginx:latest
     container_name: dev-nginx
-#    volumes:
-#      - ./nginx.conf:/etc/nginx/nginx.conf
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
     links: 
       - tomcat-8081:t01 
       - tomcat-8082:t02
