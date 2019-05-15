@@ -7,12 +7,12 @@ services:
 #    volumes:
 #      - ./nginx.conf:/etc/nginx/nginx.conf
     links: 
-      - tomcat001:t01 
-      - tomcat002:t02
+      - tomcat-8081:t01 
+      - tomcat-8082:t02
     ports: 
       - "80:80" 
     restart: always 
-  tomcat001: 
+  tomcat-8081: 
     image: docker.io/tomcat:latest
     container_name: dev-tomcat-8081
     ports: 
@@ -20,7 +20,7 @@ services:
     environment:
       TOMCAT_SERVER_ID: tomcat_server_001
     restart: always
-  tomcat002: 
+  tomcat-8082: 
     image: docker.io/tomcat:latest
     container_name: dev-tomcat-8082
     ports: 
