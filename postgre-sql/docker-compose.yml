@@ -2,6 +2,7 @@ version: "3"
 services:
   postgres:
     image: docker.io/postgres
+    privileged: true
     container_name: local_postgresql
     restart: always
     environment:
@@ -10,5 +11,5 @@ services:
       POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
-#    volumes:
-#      - /data/postgresql:/var/lib/postgresql/data
+    volumes:
+      - ./postgresql_data:/var/lib/postgresql/data
