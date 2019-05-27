@@ -20,8 +20,10 @@ services:
     environment:
       - "TZ=Asia/Shanghai"
     restart: unless-stopped
+    privileged: true
     volumes:
       - ./es_data_0:/usr/share/elasticsearch/data
+    #  - /usr/share/elasticsearch/data:/usr/share/elasticsearch/data
   kibana:
     image: docker.io/kibana:latest
     container_name: kb-local
