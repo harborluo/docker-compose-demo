@@ -2,7 +2,7 @@ version: "2"
 
 services:
   namenode:
-    image: bde2020/hadoop-namenode:1.1.0-hadoop2.7.1-java8
+    image: bde2020/hadoop-namenode:1.2.0-hadoop2.7.4-java8
     container_name: namenode
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
@@ -10,9 +10,12 @@ services:
       - CLUSTER_NAME=test
     env_file:
       - ./hadoop.env
+    ports:
+      - "50070:50070"
+    hostname: namenode
 
   resourcemanager:
-    image: bde2020/hadoop-resourcemanager:1.1.0-hadoop2.7.1-java8
+    image: bde2020/hadoop-resourcemanager:1.2.0-hadoop2.7.4-java8
     container_name: resourcemanager
     depends_on:
       - namenode
@@ -20,9 +23,12 @@ services:
       - datanode2
     env_file:
       - ./hadoop.env
+    ports: 
+      - "8088:8088"
+    hostname: resourcemanager
 
   historyserver:
-    image: bde2020/hadoop-historyserver:1.1.0-hadoop2.7.1-java8
+    image: bde2020/hadoop-historyserver:1.2.0-hadoop2.7.4-java8
     container_name: historyserver
     depends_on:
       - namenode
@@ -32,19 +38,26 @@ services:
       - hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
       - ./hadoop.env
+    ports: 
+      - "8188:8188"
+    hostname: historyserver
 
-  nodemanager1:
-    image: bde2020/hadoop-nodemanager:1.1.0-hadoop2.7.1-java8
-    container_name: nodemanager1
+  nodemanager:
+    image: bde2020/hadoop-nodemanager:1.2.0-hadoop2.7.4-java8
+    container_name: nodemanager 
     depends_on:
       - namenode
       - datanode1
       - datanode2
     env_file:
       - ./hadoop.env
+    ports: 
+      - "8042:8042"
+    hostname: nodemanager
+
 
   datanode1:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+    image: bde2020/hadoop-datanode:1.2.0-hadoop2.7.4-java8
     container_name: datanode1
     depends_on:
       - namenode
@@ -52,9 +65,12 @@ services:
       - hadoop_datanode1:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
+    ports: 
+      - "50075:50075"
+    hostname: datanode1
 
   datanode2:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+    image: bde2020/hadoop-datanode:1.2.0-hadoop2.7.4-java8
     container_name: datanode2
     depends_on:
       - namenode
@@ -62,9 +78,12 @@ services:
       - hadoop_datanode2:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
+    ports: 
+      - "50076:50075"
+    hostname: datanode2
 
   datanode3:
-    image: bde2020/hadoop-datanode:1.1.0-hadoop2.7.1-java8
+    image: bde2020/hadoop-datanode:1.2.0-hadoop2.7.4-java8
     container_name: datanode3
     depends_on:
       - namenode
@@ -72,6 +91,9 @@ services:
       - hadoop_datanode3:/hadoop/dfs/data
     env_file:
       - ./hadoop.env
+    ports: 
+      - "50077:50075"
+    hostname: datanode3
 
 volumes:
   hadoop_namenode:
